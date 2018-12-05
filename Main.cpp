@@ -1,22 +1,88 @@
+// Library Includes
+#include <SFML/Window.hpp>	
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+
+// Project Includes
+#include "Framework/AssetManager.h"
+#include "Level.h"
+
+// The main() Function - entry point for our program
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	// -----------------------------------------------
+	// Game Setup
+	// -----------------------------------------------
 
-	while (window.isOpen())
+	// Window - to draw to the screen
+	sf::RenderWindow gameWindow;
+	gameWindow.create(sf::VideoMode::getDesktopMode(), "Maze Escape", sf::Style::Titlebar | sf::Style::Close);
+
+	// Seed our random number generator 
+	srand(time(NULL));
+
+	// Create AssetManager
+	AssetManager assets;
+
+	// Game Clock - to keep track of time passed each frame
+	sf::Clock gameClock;
+
+	//Create the game level
+	Level OurLevel;
+
+	// -----------------------------------------------
+	// Game Loop
+	// -----------------------------------------------
+	while (gameWindow.isOpen())
 	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
-		window.clear();
-		window.draw(shape);
-		window.display();
-	}
+		// -----------------------------------------------
+		// Input Section
+		// -----------------------------------------------
 
+		// Check all events since the last frame and process 
+		// each one until there are no more
+		sf::Event gameEvent;
+		while (gameWindow.pollEvent(gameEvent))
+		{
+			// TODO: Pass event to input objects
+
+			OurLevel.Input(gameEvent);
+
+			// Did the player try to close the window?
+			if (gameEvent.type == sf::Event::Closed)
+			{
+				// If so, call the close function on the window.
+				gameWindow.close();
+			}
+
+		} // End event polling loop
+
+		// -----------------------------------------------
+		// Update Section
+		// -----------------------------------------------
+		// Get the time passed since the last frame and restart our game clock
+		sf::Time FrameTime = gameClock.restart();
+
+		//pass update to level
+		OurLevel.Update(FrameTime);
+
+		// -----------------------------------------------
+		// Draw Section
+		// -----------------------------------------------
+
+		// Clear the window to a single colour
+		gameWindow.clear(sf::Color::Black);
+
+		//pass Display to level
+		OurLevel.Draw(gameWindow);
+
+		// Display the window contents on the screen
+		gameWindow.display();
+
+	} // End of Game Loop
 	return 0;
-}
+
+} // End of main() Function
