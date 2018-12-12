@@ -21,6 +21,7 @@ public:
 	void LoadNextLevel();
 	float GetCellSize();
 	bool MoveObjectTo(GridObject* _ToMove, sf::Vector2i _TargetPos);
+	bool DeleteObject(GridObject* _ToDelete, sf::Vector2i _TargetPos);
 	std::vector<GridObject* > GetObjectAt(sf::Vector2i _TargetPos);
 
 private:

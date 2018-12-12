@@ -174,7 +174,7 @@ void Level::LoadLevel(int _LevelToLoad)
 		{
 			//this is going to be some object(or empty space),so we need a background
 			//create background sprite
-			m_Background[y].push_back(sf::Sprite(AssetManager::GetTexture("graphics/ground.png")));
+			m_Background[y].push_back(sf::Sprite(AssetManager::GetTexture("graphics/Background.png")));
 			m_Background[y][x].setPosition(x * m_CellSize, y * m_CellSize);
 
 			//create an empty vector for our grid contents in this cell
@@ -283,6 +283,45 @@ bool Level::MoveObjectTo(GridObject* _ToMove, sf::Vector2i _TargetPos)
 
 			//tell the object it's new position
 			_ToMove->SetGridPosition(_TargetPos);
+
+			//return success
+			return true;
+		}
+	}
+	//return failure
+	return false;
+}
+
+bool Level::DeleteObject(GridObject* _ToDelete, sf::Vector2i _TargetPos)
+{
+    //Get the position of Grid Object to delete
+
+	//Delete Object
+
+	if (_ToDelete != nullptr
+		&& _TargetPos.y >= 0 && _TargetPos.y < m_Contents.size()
+		&& _TargetPos.x >= 0 && _TargetPos.x < m_Contents[_TargetPos.y].size())
+	{
+		//get the current position of the grid object
+		sf::Vector2i Pos = _ToDelete->GetGridPosition();
+
+		// find the object in the list
+		//using an iterator and the "find" method
+		auto it = std::find(m_Contents[Pos.y][Pos.x].begin(),
+			m_Contents[Pos.y][Pos.x].end(),
+			_ToDelete);
+
+		//if we found the object at this location,
+		//it will NOT equal the end of the vector
+		if (it != m_Contents[Pos.y][Pos.x].end())
+		{
+			//we found the object!
+
+			// delete the memory
+			delete *it;
+
+			//remove it from the position
+			m_Contents[Pos.y][Pos.x].erase(it);
 
 			//return success
 			return true;
