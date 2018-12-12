@@ -40,10 +40,16 @@
     <ClCompile Include="Player.cpp">
       <Filter>GameCode</Filter>
     </ClCompile>
-    <ClCompile Include="StorageObject.cpp">
+    <ClCompile Include="Wall.cpp">
       <Filter>GameCode</Filter>
     </ClCompile>
-    <ClCompile Include="Wall.cpp">
+    <ClCompile Include="Dirt.cpp">
+      <Filter>GameCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>GameCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Gem.cpp">
       <Filter>GameCode</Filter>
     </ClCompile>
   </ItemGroup>
@@ -75,10 +81,16 @@
     <ClInclude Include="Player.h">
       <Filter>GameCode</Filter>
     </ClInclude>
-    <ClInclude Include="StorageObject.h">
+    <ClInclude Include="Wall.h">
       <Filter>GameCode</Filter>
     </ClInclude>
-    <ClInclude Include="Wall.h">
+    <ClInclude Include="Dirt.h">
+      <Filter>GameCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>GameCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Gem.h">
       <Filter>GameCode</Filter>
     </ClInclude>
   </ItemGroup>

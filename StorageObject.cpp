@@ -5,5 +5,5 @@
 StorageObject::StorageObject()
 	: GridObject()
 {
-	m_Sprite.setTexture(AssetManager::GetTexture("graphics/storage.png"));
+	m_Sprite.setTexture(AssetManager::GetTexture("grahics/storage.png"));
 }

@@ -3,6 +3,9 @@
 #include "Framework/AssetManager.h"
 #include "Wall.h"
 #include "Player.h"
+#include "Dirt.h"
+#include "Gem.h"
+#include "Rock.h"
 
 //library includes
 #include <iostream>
@@ -197,6 +200,30 @@ void Level::LoadLevel(int _LevelToLoad)
 				 player->SetGridPosition(x, y);
 				 m_Contents[y][x].push_back(player);
 
+			 }
+			 else if (ch == 'D')
+			 {
+				 //if it is a Player
+				 Dirt* dirt = new Dirt();
+				 dirt->SetLevel(this);
+				 dirt->SetGridPosition(x, y);
+				 m_Contents[y][x].push_back(dirt);
+			 }
+			 else if (ch == 'G')
+			 {
+				 //if it is a Player
+				 Gem* gem = new Gem();
+				 gem->SetLevel(this);
+				 gem->SetGridPosition(x, y);
+				 m_Contents[y][x].push_back(gem);
+			 }
+			 else if (ch == 'R')
+			 {
+				 //if it is a Player
+				 Rock* rock = new Rock();
+				 rock->SetLevel(this);
+				 rock->SetGridPosition(x, y);
+				 m_Contents[y][x].push_back(rock);
 			 }
 			else
 			{
