@@ -127,8 +127,7 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 		// We were blocked, Can we dig the thing blocking us
 		// Do a dynamic cast to dirt to see if we can dig it
 		Dirt* dig = dynamic_cast<Dirt*>(blocker);
-		// Do a dynamic cast to Gem to see if we can mine it
-		Gem* mine = dynamic_cast<Gem*>(blocker);
+		
 
 		// If so Attempt to dig
 		if (dig != nullptr)
@@ -140,19 +139,24 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 				return m_Level->DeleteObject(blocker, TargetPos);
 			}
 		}
-
+		
+		// Do a dynamic cast to Gem to see if we can mine it
+		Gem* mine = dynamic_cast<Gem*>(blocker);
 		// If so Attempt to mine
 		if (mine != nullptr)
 		{
+			//Assume that it has not mined
+			m_mined - false;
+
 			bool mineSucceeded = true;
 			// If push succeeded, Move to new spot
 			if (mineSucceeded == true)
 			{
-				return m_Level->DeleteObject(blocker, TargetPos);
+				m_mined = true;
+
 				m_Level -> CheckComplete();
 			}
 		}
-
 
 		// We were blocked, Can we push the thing blocking us
 		// Do a dynamic cast to box to see if we can push it
@@ -172,4 +176,9 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 	}
 	//if movement is blocked, do nothing, return false
 	return false;
+}
+
+bool Player::GetMined()
+{
+	return m_mined;
 }

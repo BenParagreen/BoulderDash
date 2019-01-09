@@ -26,12 +26,12 @@ void Rock::Update(sf::Time m_falltime)
 	}
 }
 
-bool Rock::AttemptPush(sf::Vector2i _direction)
+bool Rock::AttemptPush(sf::Vector2i _Direction)
 {
 	//attempt to move the Rock in the given direction
 		//get the current position
 		//calculate the target position
-	sf::Vector2i TargetPos = m_GridPosition + _direction;
+	sf::Vector2i TargetPos = m_GridPosition + _Direction;
 	// check if the space is empty
 	// get list of  objects in our target position
 	std::vector<GridObject*> TargetCellContents = m_Level->GetObjectAt(TargetPos);

@@ -9,7 +9,7 @@ class Rock : public GridObject
 public:
 	Rock();
 	void Update(sf::Time _FrameTime);
-	bool AttemptPush(sf::Vector2i _direction);
+	bool AttemptPush(sf::Vector2i _Direction);
 
 private:
 

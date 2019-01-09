@@ -378,13 +378,22 @@ bool Level::CheckComplete()
 			{
 				GridObject* thisObject = m_Contents[y][x][z];
 
+				Player* gemObject = dynamic_cast<Player*>(thisObject);
+				if (gemObject != nullptr)
+				{
+					// It was a gem
 
+					// Is it stored?
+					if (gemObject->GetMined() == false)
+					{
+						//Any single Gem not yet mined means level is not yet complete
+						return false;
+					}
+				}
 			}
 		}
 	}
-    //All boxes were Stored so level is complete
-
-    //TODO Add victory music
+    //All Gems were mined so level is complete
 
     //queue the next level to load during the next update
     // If we change level right away we get an access violation due to update still running
