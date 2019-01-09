@@ -56,8 +56,6 @@ void Level::Draw(sf::RenderTarget& _Target)
 		}
 	}
 
-	//TODO Adjust camera as needed
-
 	// Reset view
 	_Target.setView(_Target.getDefaultView());
 
@@ -104,6 +102,12 @@ void Level::Input(sf::Event _GameEvent)
 			}
 		}
 	}
+
+	if (_GameEvent.type == sf::Event::KeyPressed)
+		if (_GameEvent.key.code == sf::Keyboard::R)
+		{
+			ReloadLevel();
+		}
 }
 
 void Level::LoadLevel(int _LevelToLoad)
@@ -113,15 +117,15 @@ void Level::LoadLevel(int _LevelToLoad)
 	//Delete any data already in the level
 	
 	//Y = rows
-	for (int y = 0; y < m_Contents.size(); ++ y)
+	for (int y = 0; y < m_Contents.size(); ++y)
 	{
 		//X = Cells
-		for (int x = 0; x <  m_Contents[y].size(); ++x)
-		{	
+		for (int x = 0; x < m_Contents[y].size(); ++x)
+		{
 			//Z = stickoutty(GridObjects)
-			for (int z = 0; z < m_Contents[z].size(); ++z)
+			for (int z = 0; z < m_Contents[y][x].size(); ++z)
 			{
-				delete m_Contents[x][y][z];
+				delete m_Contents[y][x][z];
 			}
 		}
 	}
@@ -133,7 +137,7 @@ void Level::LoadLevel(int _LevelToLoad)
 	//set the current level
 	m_CurrentLevel = _LevelToLoad;
 
-	//-=Set up the new level=-
+	//--------------------------=Set up the new level=--------------------------
 
 	// Open our file for reading
 	std::ifstream inFile;
@@ -378,17 +382,17 @@ bool Level::CheckComplete()
 			{
 				GridObject* thisObject = m_Contents[y][x][z];
 
-				Player* gemObject = dynamic_cast<Player*>(thisObject);
+				Gem* gemObject = dynamic_cast<Gem*>(thisObject);
 				if (gemObject != nullptr)
 				{
 					// It was a gem
 
 					// Is it stored?
-					if (gemObject->GetMined() == false)
-					{
+					//if (gemObject->GetMined() == false)
+					//{
 						//Any single Gem not yet mined means level is not yet complete
 						return false;
-					}
+					//}
 				}
 			}
 		}

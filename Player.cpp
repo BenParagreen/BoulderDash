@@ -145,17 +145,20 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 		// If so Attempt to mine
 		if (mine != nullptr)
 		{
+			bool gemDeleted = m_Level->DeleteObject(blocker, TargetPos);;
+			m_Level->CheckComplete();
+			return gemDeleted;
+
 			//Assume that it has not mined
-			m_mined - false;
+			//m_mined - false;
 
-			bool mineSucceeded = true;
+			//bool mineSucceeded = true;
 			// If push succeeded, Move to new spot
-			if (mineSucceeded == true)
-			{
-				m_mined = true;
+			//if (mineSucceeded == true)
+			//{
+			//	m_mined = true;
 
-				m_Level -> CheckComplete();
-			}
+			//}
 		}
 
 		// We were blocked, Can we push the thing blocking us
