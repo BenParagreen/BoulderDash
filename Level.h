@@ -24,10 +24,13 @@ public:
 	bool DeleteObject(GridObject* _ToDelete, sf::Vector2i _TargetPos);
 	std::vector<GridObject* > GetObjectAt(sf::Vector2i _TargetPos);
 
+	bool CheckComplete();
+
 private:
 
 	const float m_CellSize;
 	int m_CurrentLevel;
+	int m_pendingLevel;
 	std::vector< std::vector < sf::Sprite > > m_Background;
 	std::vector< std::vector < std::vector< GridObject* > > > m_Contents;
 };

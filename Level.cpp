@@ -14,6 +14,7 @@
 Level::Level()
 	:m_CellSize(64.0f)
 	,m_CurrentLevel(0)
+	,m_pendingLevel(0)
 	,m_Background()
 	,m_Contents()
 {
@@ -76,6 +77,15 @@ void Level::Update(sf::Time _FrameTime)
 				m_Contents[y][x][z]->Update(_FrameTime);
 			}
 		}
+	}
+
+	// If there is a pending level waiting 
+	if (m_pendingLevel != 0)
+	{
+		//Load it
+		LoadLevel(m_pendingLevel);
+		// Remove pending level
+		m_pendingLevel = 0;
 	}
 }
 
@@ -203,7 +213,7 @@ void Level::LoadLevel(int _LevelToLoad)
 			 }
 			 else if (ch == 'D')
 			 {
-				 //if it is a Player
+				 //if it is a Dirt
 				 Dirt* dirt = new Dirt();
 				 dirt->SetLevel(this);
 				 dirt->SetGridPosition(x, y);
@@ -211,7 +221,7 @@ void Level::LoadLevel(int _LevelToLoad)
 			 }
 			 else if (ch == 'G')
 			 {
-				 //if it is a Player
+				 //if it is a Gem
 				 Gem* gem = new Gem();
 				 gem->SetLevel(this);
 				 gem->SetGridPosition(x, y);
@@ -219,7 +229,7 @@ void Level::LoadLevel(int _LevelToLoad)
 			 }
 			 else if (ch == 'R')
 			 {
-				 //if it is a Player
+				 //if it is a Rock
 				 Rock* rock = new Rock();
 				 rock->SetLevel(this);
 				 rock->SetGridPosition(x, y);
@@ -352,4 +362,34 @@ std::vector<GridObject* > Level::GetObjectAt(sf::Vector2i _TargetPos)
 	//(Default constructor)
 	return std::vector<GridObject*>();
 
+}
+
+bool Level::CheckComplete()
+{
+	//Loop through and check if any gems are still on screen
+	//Y = Rows
+	for (int y = 0; y < m_Contents.size(); ++y)
+	{
+		//X = Cells
+		for (int x = 0; x < m_Contents[y].size(); ++x)
+		{
+			//Z = stickoutty(GridObjects)
+			for (int z = 0; z < m_Contents[y][x].size(); ++z)
+			{
+				GridObject* thisObject = m_Contents[y][x][z];
+
+
+			}
+		}
+	}
+    //All boxes were Stored so level is complete
+
+    //TODO Add victory music
+
+    //queue the next level to load during the next update
+    // If we change level right away we get an access violation due to update still running
+	m_pendingLevel = m_CurrentLevel + 1;
+
+	//The level is complete so return true
+	return true;
 }

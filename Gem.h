@@ -8,5 +8,4 @@ class Gem : public GridObject
 
 public:
 	Gem();
-
 };

@@ -15,6 +15,8 @@ Player::Player()
 	m_WalkSound.setBuffer(AssetManager::GetSoundBuffer("audio/footstep1.ogg"));
 	m_BumpSound.setBuffer(AssetManager::GetSoundBuffer("audio/bump.wav"));
 
+	m_BlocksMovement = true;
+
 }
 
 void Player::Input(sf::Event _GameEvent)
@@ -123,16 +125,30 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 	{
 		// We were blocked, Can we dig the thing blocking us
 		// Do a dynamic cast to dirt to see if we can dig it
-		Dirt* digDirt = dynamic_cast<Dirt*>(blocker);
+		Dirt* dig = dynamic_cast<Dirt*>(blocker);
+		// Do a dynamic cast to Gem to see if we can mine it
+		Gem* mine = dynamic_cast<Gem*>(blocker);
 
 		// If so Attempt to dig
-		if (digDirt != nullptr)
+		if (dig != nullptr)
 		{
-			bool dirtSucceeded = true;
+			bool digSucceeded = true;
 			// If push succeeded, Move to new spot
-			if (dirtSucceeded == true)
+			if (digSucceeded == true)
 			{
 				return m_Level->DeleteObject(blocker, TargetPos);
+			}
+		}
+
+		// If so Attempt to mine
+		if (mine != nullptr)
+		{
+			bool mineSucceeded = true;
+			// If push succeeded, Move to new spot
+			if (mineSucceeded == true)
+			{
+				return m_Level->DeleteObject(blocker, TargetPos);
+				m_Level -> CheckComplete();
 			}
 		}
 	}
