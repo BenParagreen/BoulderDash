@@ -25,6 +25,7 @@ public:
 	std::vector<GridObject* > GetObjectAt(sf::Vector2i _TargetPos);
 
 	bool CheckComplete();
+	bool CheckDeath();
 
 private:
 

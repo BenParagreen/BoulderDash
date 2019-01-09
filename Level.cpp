@@ -393,3 +393,13 @@ bool Level::CheckComplete()
 	//The level is complete so return true
 	return true;
 }
+
+bool Level::CheckDeath()
+{
+	//queue the current level to load during the next update
+    // If we change level right away we get an access violation due to update still running
+	m_pendingLevel = m_CurrentLevel;
+
+	//The player died so return true
+	return true;
+}

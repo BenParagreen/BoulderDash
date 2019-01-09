@@ -4,6 +4,7 @@
 #include "Level.h"
 #include "Dirt.h"
 #include "Gem.h"
+#include "Rock.h"
 
 Player::Player()
 	: GridObject()
@@ -151,6 +152,23 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 				m_Level -> CheckComplete();
 			}
 		}
+
+
+		// We were blocked, Can we push the thing blocking us
+		// Do a dynamic cast to box to see if we can push it
+		Rock* pushableRock = dynamic_cast<Rock*>(blocker);
+
+		// If so Attempt to push
+		if (pushableRock != nullptr)
+		{
+			bool pushSucceeded = pushableRock->AttemptPush(_Direction);
+			// If push succeeded, Move to new spot
+			if (pushSucceeded == true)
+			{
+				return m_Level->MoveObjectTo(this, TargetPos);
+			}
+		}
+
 	}
 	//if movement is blocked, do nothing, return false
 	return false;

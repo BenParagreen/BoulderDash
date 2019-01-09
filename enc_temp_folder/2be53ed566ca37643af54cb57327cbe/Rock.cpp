@@ -113,6 +113,50 @@ bool Rock::AttemptMove(sf::Vector2i _Direction)
 			return false;
 		}
 
+		/*
+		// We were blocked, Can we slide off the thing blocking us
+		// Do a dynamic cast to rock to see if we can slide off
+		Rock* slideTime = dynamic_cast<Rock*>(blocker);
+
+		// If so Attempt to slide
+		if (slideTime != nullptr)
+		{
+			// There is a rock where we are trying to move
+
+			// If we were trying to move straight down
+			if (_Direction.x == 0)
+			{
+				// we should now try right
+				AttemptMove(_Direction + sf::Vector2i(1, 0));
+			}
+				// If we were trying to move right
+			if (_Direction.x == 1)
+			{
+				// we should now try left
+				AttemptMove(_Direction + sf::Vector2i(-2, 0));
+			}
+
+			// If we were trying to move left
+			if (_Direction.x == -1)
+			{
+				// GIVE UP
+				return false;
+			}
+			
+
+			// Attempt to slide right first
+	        //m_PendingMove = m_PendingMove + sf::Vector2i(1, 0);
+			//AttemptMove(m_PendingMove);
+
+			// If right is blocked slide left
+            //if (blocked == true)
+			//{
+				//m_PendingMove = m_PendingMove + sf::Vector2i(-1, 0);
+				//AttemptMove(m_PendingMove);
+			//}
+
+		}
+			*/
 
 		// We were blocked, Can we kill the thing blocking us
 		// Do a dynamic cast to player to see if we can kill it
