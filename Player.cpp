@@ -112,11 +112,6 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 		}
 	}
 
-	if (blocked == true)
-	{
-		m_BumpSound.play();
-	}
-
 	//if empty, move there
 	if (blocked == false)
 	{
@@ -136,6 +131,7 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 			// If push succeeded, Move to new spot
 			if (digSucceeded == true)
 			{
+				m_WalkSound.play();
 				return m_Level->DeleteObject(blocker, TargetPos);
 			}
 		}
@@ -145,20 +141,10 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 		// If so Attempt to mine
 		if (mine != nullptr)
 		{
+			m_BumpSound.play();
 			bool gemDeleted = m_Level->DeleteObject(blocker, TargetPos);;
 			m_Level->CheckComplete();
 			return gemDeleted;
-
-			//Assume that it has not mined
-			//m_mined - false;
-
-			//bool mineSucceeded = true;
-			// If push succeeded, Move to new spot
-			//if (mineSucceeded == true)
-			//{
-			//	m_mined = true;
-
-			//}
 		}
 
 		// We were blocked, Can we push the thing blocking us
@@ -168,6 +154,7 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 		// If so Attempt to push
 		if (pushableRock != nullptr)
 		{
+			m_BumpSound.play();
 			bool pushSucceeded = pushableRock->AttemptPush(_Direction);
 			// If push succeeded, Move to new spot
 			if (pushSucceeded == true)
